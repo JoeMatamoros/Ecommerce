@@ -12,7 +12,7 @@ require 'Libraries/phpmailer/SMTP.php';
 	{
 		return BASE_URL;
 	}
-    //Retorla la url de Assets
+    //Retorla la url de la carpeta Assets
     function media()
     {
         return BASE_URL."/Assets";
@@ -57,6 +57,7 @@ require 'Libraries/phpmailer/SMTP.php';
         $send =mail($emailDestino,$asunto,$mensaje,$de);
         return $send;
     } else{
+        //Usando PHPMailer
          //Create an instance; passing `true` enables exceptions
          $mail = new PHPMailer(true);
          ob_start();
@@ -69,13 +70,13 @@ require 'Libraries/phpmailer/SMTP.php';
              $mail->isSMTP();                                            //Send using SMTP
              $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
              $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-             $mail->Username   = 'PruebasDevDistribucion@gmail.com';     //SMTP username
-             $mail->Password   = 'eqggilzpdldrzmct';                     //SMTP password
+             $mail->Username   = 'kilakiuni@gmail.com';                  //SMTP username
+             $mail->Password   = 'joazfvsyejzrfaxk';                     //SMTP password
              $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
              $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
              //Recipients
-             $mail->setFrom('PruebasDevDistribucion@gmail.com', 'Servidor Distribucion CLARO HND');
+             $mail->setFrom('kilakiuni@gmail.com', 'Servidor Privado Ecommerce');
              $mail->addAddress($data['email']);                          //Add a recipient
 
              //Content
@@ -180,4 +181,4 @@ require 'Libraries/phpmailer/SMTP.php';
     }
     
 
- ?>
+?>

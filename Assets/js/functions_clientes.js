@@ -15,14 +15,16 @@ document.addEventListener('DOMContentLoaded', function(){
         },
         "columns":[
             {"data":"idpersona"},
-            {"data":"identificacion"},
+            {"data":"identificacion"}, 
             {"data":"nombres"},
             {"data":"apellidos"},
             {"data":"email_user"},
             {"data":"telefono"},
             {"data":"options"}
         ],
-        'dom': 'lBfrtip',
+        'dom': "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         'buttons': [
             {
                 "extend": "copyHtml5",
@@ -116,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 }, false);
 
-
+/*Ver informacion de un cliente especifico */
 function fntViewInfo(idpersona){
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
@@ -143,7 +145,7 @@ function fntViewInfo(idpersona){
         }
     }
 }
-
+/*Editar cliente */
 function fntEditInfo(element, idpersona){
     rowTable = element.parentNode.parentNode.parentNode;
     document.querySelector('#titleModal').innerHTML ="Actualizar Cliente";
@@ -174,7 +176,7 @@ function fntEditInfo(element, idpersona){
         $('#modalFormCliente').modal('show');
     }
 }
-
+/*Inhabilitar un cliente especifico */
 function fntDelInfo(idpersona){
     swal({
         title: "Eliminar Cliente",
@@ -212,9 +214,8 @@ function fntDelInfo(idpersona){
     });
 
 }
-
-function openModal()
-{
+/*Abrir modal de cliente */
+function openModal(){
     rowTable = "";
     document.querySelector('#idUsuario').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");

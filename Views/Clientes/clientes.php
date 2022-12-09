@@ -7,7 +7,7 @@
         <div>
             <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
                 <?php if($_SESSION['permisosMod']['w']){ ?>
-                <button class="btn btn-primary" type="button" onclick="openModal();" ><i class="fas fa-plus-circle"></i> Nuevo</button>
+                <button class="btn btn-primary" type="button" onclick="openModal();" ><i class="fas fa-plus-circle"></i> Nuevo cliente</button>
               <?php } ?>
             </h1>
         </div>
@@ -18,11 +18,11 @@
       </div>
         <div class="row">
             <div class="col-md-12">
-              <div class="tile">
+              <div class="tile"> 
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="tableClientes">
-                      <thead>
+                    <table class="table table-hover table-bordered table-striped" id="tableClientes">
+                      <thead class="bg-dark text-white">
                         <tr>
                           <th>ID</th>
                           <th>Identificación</th>

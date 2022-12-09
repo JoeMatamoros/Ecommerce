@@ -1,6 +1,7 @@
 <?php 
-class ClientesModel extends Mysql
-{
+class ClientesModel extends Mysql {
+	
+	/*Variables requeridas para insertar  like SETER Y GETERS*/
 	private $intIdUsuario;
 	private $strIdentificacion;
 	private $strNombre;
@@ -15,11 +16,12 @@ class ClientesModel extends Mysql
 	private $strNomFiscal;
 	private $strDirFiscal;
 
-	public function __construct()
-	{
+	/*Clase constructors */
+	public function __construct(){
 		parent::__construct();
-	}	
+	}
 
+	/*Insertar cliente */
 	public function insertCliente(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, string $nit, string $nomFiscal, string $dirFiscal){
 
 		$this->strIdentificacion = $identificacion;
@@ -32,26 +34,27 @@ class ClientesModel extends Mysql
 		$this->strNit = $nit;
 		$this->strNomFiscal = $nomFiscal;
 		$this->strDirFiscal = $dirFiscal;
-
+ 
 		$return = 0;
 		$sql = "SELECT * FROM persona WHERE 
 				email_user = '{$this->strEmail}' or identificacion = '{$this->strIdentificacion}' ";
 		$request = $this->select_all($sql);
 
-		if(empty($request))
-		{
+		if(empty($request)){
 			$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid,nit,nombrefiscal,direccionfiscal) 
 							  VALUES(?,?,?,?,?,?,?,?,?,?)";
-        	$arrData = array($this->strIdentificacion,
-    						$this->strNombre,
-    						$this->strApellido,
-    						$this->intTelefono,
-    						$this->strEmail,
-    						$this->strPassword,
-    						$this->intTipoId,
-    						$this->strNit,
-    						$this->strNomFiscal,
-    						$this->strDirFiscal);
+        	$arrData = array(
+				$this->strIdentificacion,
+    			$this->strNombre,
+    			$this->strApellido,
+    			$this->intTelefono,
+    			$this->strEmail,
+    			$this->strPassword,
+    			$this->intTipoId,
+    			$this->strNit,
+    			$this->strNomFiscal,
+    			$this->strDirFiscal
+			);//Cierre de array
         	$request_insert = $this->insert($query_insert,$arrData);
         	$return = $request_insert;
 		}else{
@@ -59,9 +62,8 @@ class ClientesModel extends Mysql
 		}
         return $return;
 	}
-
-	public function selectClientes()
-	{
+	/*Listar datos */
+	public function selectClientes() {
 		$sql = "SELECT idpersona,identificacion,nombres,apellidos,telefono,email_user,status 
 				FROM persona 
 				WHERE rolid = 7 and status != 0 ";
@@ -69,6 +71,7 @@ class ClientesModel extends Mysql
 		return $request;
 	}
 
+	/*Listar detalle de usuario en sesion */
 	public function selectCliente(int $idpersona){
 		$this->intIdUsuario = $idpersona;
 		$sql = "SELECT idpersona,identificacion,nombres,apellidos,telefono,email_user,nit,nombrefiscal,direccionfiscal,status, DATE_FORMAT(datecreated, '%d-%m-%Y') as fechaRegistro 
@@ -78,6 +81,7 @@ class ClientesModel extends Mysql
 		return $request;
 	}
 
+	/*Actualizar */
 	public function updateCliente(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, string $nit, string $nomFiscal, string $dirFiscal){
 
 		$this->intIdUsuario = $idUsuario;
@@ -101,26 +105,30 @@ class ClientesModel extends Mysql
 			{
 				$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, password=?, nit=?, nombrefiscal=?, direccionfiscal=? 
 						WHERE idpersona = $this->intIdUsuario ";
-				$arrData = array($this->strIdentificacion,
-        						$this->strNombre,
-        						$this->strApellido,
-        						$this->intTelefono,
-        						$this->strEmail,
-        						$this->strPassword,
-        						$this->strNit,
-        						$this->strNomFiscal,
-        						$this->strDirFiscal);
+				$arrData = array(
+					$this->strIdentificacion,
+        			$this->strNombre,
+        			$this->strApellido,
+        			$this->intTelefono,
+        			$this->strEmail,
+        			$this->strPassword,
+        			$this->strNit,
+        			$this->strNomFiscal,
+        			$this->strDirFiscal
+				);//Cierre de array
 			}else{
 				$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, nit=?, nombrefiscal=?, direccionfiscal=? 
 						WHERE idpersona = $this->intIdUsuario ";
-				$arrData = array($this->strIdentificacion,
-        						$this->strNombre,
-        						$this->strApellido,
-        						$this->intTelefono,
-        						$this->strEmail,
-        						$this->strNit,
-        						$this->strNomFiscal,
-        						$this->strDirFiscal);
+				$arrData = array(
+					$this->strIdentificacion,
+        			$this->strNombre,
+        			$this->strApellido,
+        			$this->intTelefono,
+        			$this->strEmail,
+        			$this->strNit,
+        			$this->strNomFiscal,
+        			$this->strDirFiscal
+				);//Cierre del array
 			}
 			$request = $this->update($sql,$arrData);
 		}else{
@@ -129,8 +137,8 @@ class ClientesModel extends Mysql
 		return $request;
 	}
 
-	public function deleteCliente(int $intIdpersona)
-	{
+	/*Desactivar usuario */
+	public function deleteCliente(int $intIdpersona){
 		$this->intIdUsuario = $intIdpersona;
 		$sql = "UPDATE persona SET status = ? WHERE idpersona = $this->intIdUsuario ";
 		$arrData = array(0);
@@ -139,4 +147,4 @@ class ClientesModel extends Mysql
 	}
 }
 
- ?>
+?>

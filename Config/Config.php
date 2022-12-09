@@ -10,7 +10,7 @@
 	const DB_HOST = "localhost";
 	const DB_NAME = "db_tiendavirtual";
 	const DB_USER = "root";
-	const DB_PASSWORD = "";
+	const DB_PASSWORD = "123456";
 	const DB_CHARSET = "utf8";
 
 	/*PARA ENVIO DE CORREOS */
@@ -21,13 +21,13 @@
 	const SPM = ",";
 
 	//Simbolo de moneda
-	const SMONEY = "Q";
+	const SMONEY = "L";
 
 	//Datos envio de correo
-	const NOMBRE_REMITENTE = "Tienda Virtual";
-	const EMAIL_REMITENTE = "no-reply@abelosh.com";
-	const NOMBRE_EMPESA = "Tienda Virtual";
-	const WEB_EMPRESA = "www.abelosh.com";
+	const NOMBRE_REMITENTE = "Servidor Kiuni";
+	const EMAIL_REMITENTE = "kilakiuni@gmail.com";
+	const NOMBRE_EMPESA = "Ecommerce Jaom";
+	const WEB_EMPRESA = "https://i.pinimg.com/originals/01/18/57/01185761e21826ca33f3a89a468c2cf5.jpg";
 	
 
 

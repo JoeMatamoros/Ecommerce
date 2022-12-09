@@ -16,7 +16,7 @@
 		}
 
 		public function selectModulos()
-		{
+		{ 
 			$sql = "SELECT * FROM modulo WHERE status != 0";
 			$request = $this->select_all($sql);
 			return $request;

@@ -1,35 +1,33 @@
 <?php 
-
 class Clientes extends Controllers{
-	public function __construct()
-	{
+	/*Constructor */
+	public function __construct(){
 		parent::__construct();
 		session_start();
 		session_regenerate_id(true);
-		if(empty($_SESSION['login']))
-		{
+		if(empty($_SESSION['login'])) {
 			header('Location: '.base_url().'/login');
 		}
 		getPermisos(3);
 	}
 
-	public function Clientes()
-	{
+	/*Cuerpo de la funcion principal de clientes */
+	public function Clientes() {
 		if(empty($_SESSION['permisosMod']['r'])){
 			header("Location:".base_url().'/dashboard');
 		}
 		$data['page_tag'] = "Clientes";
-		$data['page_title'] = "CLIENTES <small>Tienda Virtual</small>";
+		$data['page_title'] = "CLIENTES <small>Ecommerce</small>";
 		$data['page_name'] = "clientes";
 		$data['page_functions_js'] = "functions_clientes.js";
 		$this->views->getView($this,"clientes",$data);
 	}
 
+	/*Funcion controlador para insertar cliente y evaluar si es un update*/
 	public function setCliente(){
 		error_reporting(0);
 		if($_POST){
-			if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) )
-			{
+			if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) ){
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			}else{ 
 				$idUsuario = intval($_POST['idUsuario']);
@@ -39,32 +37,34 @@ class Clientes extends Controllers{
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
 				$strNit = strClean($_POST['txtNit']);
-				$strNomFiscal = strClean($_POST['txtNombreFiscal']);
+				$strNomFiscal = strClean($_POST['txtNombreFiscal']); 
 				$strDirFiscal = strClean($_POST['txtDirFiscal']);
 				$intTipoId = 7;
 				$request_user = "";
-				if($idUsuario == 0)
-				{
+				if($idUsuario == 0){
 					$option = 1;
 					$strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
 					$strPasswordEncript = hash("SHA256",$strPassword);
 					if($_SESSION['permisosMod']['w']){
-						$request_user = $this->model->insertCliente($strIdentificacion,
-																			$strNombre, 
-																			$strApellido, 
-																			$intTelefono, 
-																			$strEmail,
-																			$strPasswordEncript,
-																			$intTipoId, 
-																			$strNit,
-																			$strNomFiscal,
-																			$strDirFiscal );
-					}
+						$request_user = $this->model->insertCliente(
+																	$strIdentificacion,
+																	$strNombre, 
+																	$strApellido, 
+																	$intTelefono, 
+																	$strEmail,
+																	$strPasswordEncript,
+																	$intTipoId, 
+																	$strNit,
+																	$strNomFiscal,
+																	$strDirFiscal
+						 										);//Cierre funcion insertCliente
+				    }
 				}else{
 					$option = 2;
 					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
 					if($_SESSION['permisosMod']['u']){
-						$request_user = $this->model->updateCliente($idUsuario,
+						$request_user = $this->model->updateCliente(
+																	$idUsuario,
 																	$strIdentificacion, 
 																	$strNombre,
 																	$strApellido, 
@@ -73,19 +73,20 @@ class Clientes extends Controllers{
 																	$strPassword, 
 																	$strNit,
 																	$strNomFiscal, 
-																	$strDirFiscal);
+																	$strDirFiscal
+																);
 					}
 				}
 
-				if($request_user > 0 )
-				{
+				if($request_user > 0 ){
 					if($option == 1){
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						$nombreUsuario = $strNombre.' '.$strApellido;
-						$dataUsuario = array('nombreUsuario' => $nombreUsuario,
+						$dataUsuario = array(
+											 'nombreUsuario' => $nombreUsuario,
 											 'email' => $strEmail,
 											 'password' => $strPassword,
-											 'asunto' => 'Bienvenido a tu tienda en línea');
+											 'asunto' => 'Bienvenido a Ecommerce');
 						sendEmail($dataUsuario,'email_bienvenida');
 					}else{
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
@@ -100,9 +101,9 @@ class Clientes extends Controllers{
 		}
 		die();
 	}
-
-	public function getClientes()
-	{
+	
+	/*Listar todos los clientes activos */
+	public function getClientes(){
 		if($_SESSION['permisosMod']['r']){
 			$arrData = $this->model->selectClientes();
 			for ($i=0; $i < count($arrData); $i++) {
@@ -125,11 +126,11 @@ class Clientes extends Controllers{
 		die();
 	}
 
+	/*No me acuerdo que hace pero ya cambio el comment */
 	public function getCliente($idpersona){
 		if($_SESSION['permisosMod']['r']){
 			$idusuario = intval($idpersona);
-			if($idusuario > 0)
-			{
+			if($idusuario > 0){
 				$arrData = $this->model->selectCliente($idusuario);
 				if(empty($arrData))
 				{
@@ -143,8 +144,8 @@ class Clientes extends Controllers{
 		die();
 	}
 
-	public function delCliente()
-	{
+	/*Controlador para inhabiliar */
+	public function delCliente(){
 		if($_POST){
 			if($_SESSION['permisosMod']['d']){
 				$intIdpersona = intval($_POST['idUsuario']);
@@ -160,8 +161,6 @@ class Clientes extends Controllers{
 		}
 		die();
 	}
-
-
 
 }
 
