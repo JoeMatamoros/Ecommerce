@@ -99,7 +99,7 @@
 					<a href="<?= $data['url_recovery']; ?>" target="_blank" class="x_button_link x_link_blue">Confirmar datos</a>
 					</p>
 					<br>
-					<p>Si no te funciona el botón puedes copiar y pegar la siguiente dirección en tu navegador.</p>
+					<p>Si no te funciona el botón puedes copiar y pegar la siguiente direccion en tu navegador.</p>
 					<span><?= $data['url_recovery']; ?></span>
 					<p class="x_title_gray"><a href="<?= WEB_EMPRESA; ?>" target="_blanck"><?= WEB_EMPRESA; ?></a></p>
 				</td>

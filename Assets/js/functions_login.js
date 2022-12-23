@@ -57,10 +57,7 @@ document.addEventListener('DOMContentLoaded', function(){
 				return false;
 			}else{
 				divLoading.style.display = "flex";
-				var request = (window.XMLHttpRequest) ? 
-								new XMLHttpRequest() : 
-								new ActiveXObject('Microsoft.XMLHTTP');
-								
+				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 				var ajaxUrl = base_url+'/Login/resetPass'; 
 				var formData = new FormData(formRecetPass);
 				request.open("POST",ajaxUrl,true);
@@ -80,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function(){
 								closeOnConfirm: false,
 							}, function(isConfirm) {
 								if (isConfirm) {
-									window.location = base_url;
+									window.location = base_url+'/login';
 								}
 							});
 						}else{
@@ -118,9 +115,7 @@ document.addEventListener('DOMContentLoaded', function(){
 					return false;
 				}
 				divLoading.style.display = "flex";
-				var request = (window.XMLHttpRequest) ? 
-							new XMLHttpRequest() : 
-							new ActiveXObject('Microsoft.XMLHTTP');
+				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 				var ajaxUrl = base_url+'/Login/setPassword'; 
 				var formData = new FormData(formCambiarPass);
 				request.open("POST",ajaxUrl,true);

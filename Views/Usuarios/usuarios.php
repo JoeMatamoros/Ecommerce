@@ -37,8 +37,8 @@
                       <tbody>
                         <tr>
                           <td>1</td>
-                          <td>Carlos</td>
-                          <td>Henández</td>
+                          <td>Joche</td>
+                          <td>Matamoros</td>
                           <td>carlos@info.com</td>
                           <td>78542155</td>
                           <td>Administrador</td>

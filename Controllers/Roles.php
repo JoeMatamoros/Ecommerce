@@ -12,8 +12,7 @@
 			getPermisos(7);
 		}
 
-		public function Roles()
-		{
+		public function Roles(){
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');
 			}
@@ -25,8 +24,7 @@
 			$this->views->getView($this,"roles",$data);
 		}
 
-		public function getRoles()
-		{
+		public function getRoles(){
 			$btnView = '';
 			$btnEdit = '';
 			$btnDelete = '';
@@ -55,8 +53,7 @@
 			die();
 		}
 
-		public function getSelectRoles()
-		{
+		public function getSelectRoles(){
 			$htmlOptions = "";
 			$arrData = $this->model->selectRoles();
 			if(count($arrData) > 0 ){
@@ -70,8 +67,7 @@
 			die();		
 		}
 
-		public function getRol(int $idrol)
-		{
+		public function getRol(int $idrol){
 			$intIdrol = intval(strClean($idrol));
 			if($intIdrol > 0)
 			{

@@ -94,10 +94,10 @@
 						<p>Hola <?= $data['nombreUsuario']; ?></p>
 					</div>
 					<p>Bienvenido a nuestro Ecommerce</p>
-					<p>Ahora puedes realizar tus compras en línea sin salir de casa.</p>
+					<p>Ahora puedes realizar tus compras en linea sin salir de casa.</p>
 					<p>Accede a tu cuenta con tus credenciales:</p>
 					<p>Usuario: <strong><?= $data['email']; ?></strong></p>
-					<p>Contraseña: <strong><?= $data['password']; ?></strong></p>
+					<p>Contrasenia: <strong><?= $data['password']; ?></strong></p>
 					<a href="<?= BASE_URL; ?>" target="_blank" class="x_button_link x_link_blue">Comprar ahora</a>
 					<p class="x_title_gray"><a href="<?= WEB_EMPRESA; ?>" target="_blanck"><?= WEB_EMPRESA; ?></a></p>
 				</td>

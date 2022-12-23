@@ -1,45 +1,40 @@
 <?php 
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
-require 'Libraries/phpmailer/Exception.php';
-require 'Libraries/phpmailer/PHPMailer.php';
-require 'Libraries/phpmailer/SMTP.php';  
+    require 'Libraries/phpmailer/Exception.php';
+    require 'Libraries/phpmailer/PHPMailer.php';
+    require 'Libraries/phpmailer/SMTP.php';  
 
 	//Retorna la url del proyecto
-	function base_url()
-	{
+	function base_url(){
 		return BASE_URL;
 	}
     //Retorla la url de la carpeta Assets
-    function media()
-    {
+    function media(){
         return BASE_URL."/Assets";
     }
-    function headerAdmin($data="")
-    {
+    function headerAdmin($data=""){
         $view_header = "Views/Template/header_admin.php";
         require_once ($view_header);
     }
-    function footerAdmin($data="")
-    {
+    function footerAdmin($data=""){
         $view_footer = "Views/Template/footer_admin.php";
         require_once ($view_footer);        
     }
 	//Muestra información formateada
-	function dep($data)
-    {
+	function dep($data){
         $format  = print_r('<pre>');
         $format .= print_r($data);
         $format .= print_r('</pre>');
         return $format;
     }
-    function getModal(string $nameModal, $data)
-    {
+    function getModal(string $nameModal, $data){
         $view_modal = "Views/Template/Modals/{$nameModal}.php";
         require_once $view_modal;        
     }
+
   /*ENVIO DE CORREOS */
   function sendEmail($data,$template){
     if(ENVIRONMENT == 1){
@@ -116,6 +111,13 @@ require 'Libraries/phpmailer/SMTP.php';
         return $request;
     }
 
+    function uploadImage(array $data, string $name){
+        $url_temp = $data['tmp_name'];
+        $destino = 'Assets/images/uploads/'.$name;
+        $move = move_uploaded_file($url_temp,$destino);
+        return $move;
+    }
+
     //Elimina exceso de espacios entre palabras
     function strClean($strCadena){
         $string = preg_replace(['/\s+/','/^\s|\s$/'],[' ',''], $strCadena);
@@ -149,24 +151,22 @@ require 'Libraries/phpmailer/SMTP.php';
         $string = str_ireplace("==","",$string);
         return $string;
     }
-    //Genera una contraseña de 10 caracteres
-	function passGenerator($length = 10)
-    {
+
+    //Genera una contraseña de 10 caracteres aleatoriamente
+	function passGenerator($length = 10){
         $pass = "";
         $longitudPass=$length;
         $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $longitudCadena=strlen($cadena);
 
-        for($i=1; $i<=$longitudPass; $i++)
-        {
+        for($i=1; $i<=$longitudPass; $i++){
             $pos = rand(0,$longitudCadena-1);
             $pass .= substr($cadena,$pos,1);
         }
         return $pass;
     }
     //Genera un token
-    function token()
-    {
+    function token(){
         $r1 = bin2hex(random_bytes(10));
         $r2 = bin2hex(random_bytes(10));
         $r3 = bin2hex(random_bytes(10));
@@ -174,6 +174,7 @@ require 'Libraries/phpmailer/SMTP.php';
         $token = $r1.'-'.$r2.'-'.$r3.'-'.$r4;
         return $token;
     }
+
     //Formato para valores monetarios
     function formatMoney($cantidad){
         $cantidad = number_format($cantidad,2,SPD,SPM);

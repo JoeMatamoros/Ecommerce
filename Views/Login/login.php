@@ -10,7 +10,6 @@
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media();?>/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= media();?>/css/style.css">
-    
     <title><?= $data['page_tag']; ?></title>
   </head>
   <body>
